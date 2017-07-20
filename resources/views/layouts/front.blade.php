@@ -9,7 +9,6 @@
 
     <title>Webdev forum</title>
     <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.min.css">
     <link rel="stylesheet" href="{{asset('css/main.css')}}">
 
     <!-- Scripts -->
@@ -34,7 +33,6 @@
 
     <div class="row">
         @section('category')
-{{--            <a class="btn btn-primary"  href="{{route('thread.create')}}">Create Thread</a> <br>--}}
             {{--//category section--}}
             @include('layouts.partials.categories')
         @show
