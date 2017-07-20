@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
 use App\Thread;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -13,21 +12,16 @@ class ThreadController extends Controller
     {
         return $this->middleware('auth')->except('index');
     }
-    
-    
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if($request->has('tags')){
-            $tag=Tag::find($request->tags);
-            $threads=$tag->threads;
-        }else{
-            $threads = Thread::paginate(15);
-        }
+        $threads = Thread::paginate(15);
         return view('thread.index', compact('threads'));
     }
 
@@ -53,15 +47,13 @@ class ThreadController extends Controller
 
         $this->validate($request, [
             'subject' => 'required|min:5',
-            'tags'    => 'required',
+            'type'    => 'required',
             'thread'  => 'required|min:10',
-//            'g-recaptcha-response' => 'required|captcha'
+          
         ]);
 
         //store
-        $thread=auth()->user()->threads()->create($request->all());
-
-        $thread->tags()->attach($request->tags);
+        auth()->user()->threads()->create($request->all());
 
         //redirect
         return back()->withMessage('Thread Created!');
